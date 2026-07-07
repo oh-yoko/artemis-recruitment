@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Artemis — Sound for Gestational Synchrony</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --beige:   #f0ebe0;
+      --beige2:  #e8e1d4;
+      --black:   #1a1a18;
+      --mauve:   #c4a8b8;
+      --mauve-light: #e2d2dc;
+      --mauve-dark:  #9a7a90;
+      --text:    #2e2c2a;
+      --muted:   #7a7068;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--beige);
+      color: var(--text);
+      font-family: 'Space Mono', 'Courier New', monospace;
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    /* ── TYPOGRAPHY ── */
+    h1, h2, h3, .label {
+      font-family: 'Space Mono', 'Courier New', monospace;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .label {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── HEADER ── */
+    header {
+      padding: 48px 7vw 40px;
+      border-bottom: 1px solid var(--mauve-light);
+      display: flex;
+      align-items: baseline;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .wordmark {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--black);
+    }
+    .wordmark span {
+      color: var(--mauve-dark);
+    }
+    .header-sub {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 80px 7vw 64px;
+      max-width: 860px;
+    }
+    .hero .label { margin-bottom: 20px; }
+    .hero h1 {
+      font-size: clamp(28px, 4.5vw, 50px);
+      line-height: 1.1;
+      color: var(--black);
+      margin-bottom: 10px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--mauve-dark);
+    }
+    .hero .byline {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 40px;
+      font-family: 'Space Mono', monospace;
+      letter-spacing: 0.04em;
+    }
+    .hero p {
+      font-size: 15px;
+      max-width: 680px;
+      margin-bottom: 18px;
+    }
+    .hero .dates-pill {
+      display: inline-block;
+      margin-top: 28px;
+      padding: 8px 20px;
+      background: var(--black);
+      color: var(--beige);
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 7vw;
+      height: 1px;
+      background: var(--mauve);
+      margin: 0 7vw 64px;
+    }
+
+    /* ── COMPONENTS SECTION ── */
+    .components {
+      padding: 0 7vw 80px;
+    }
+    .components .label { margin-bottom: 40px; }
+    .component-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2px;
+    }
+    .component-card {
+      background: var(--beige2);
+      padding: 36px 32px;
+    }
+    .component-card:first-child { background: var(--mauve-light); }
+    .component-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--mauve-dark);
+      margin-bottom: 14px;
+    }
+    .component-card h3 {
+      font-size: 16px;
+      margin-bottom: 10px;
+      color: var(--black);
+    }
+    .component-card p {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    /* ── BELLY IMAGE ── */
+    .belly-section {
+      margin: 80px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .belly-section img {
+      width: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center 30%;
+      display: block;
+    }
+    .belly-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 24px 7vw;
+      background: linear-gradient(transparent, rgba(26,26,24,0.55));
+      color: #f0ebe0;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── ELIGIBILITY + COMPENSATION ── */
+    .info-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin: 0 0 2px;
+    }
+    @media (max-width: 640px) { .info-row { grid-template-columns: 1fr; } }
+    .info-block {
+      padding: 48px 7vw;
+      background: var(--beige2);
+    }
+    .info-block.dark {
+      background: var(--black);
+      color: var(--beige);
+    }
+    .info-block .label { margin-bottom: 22px; }
+    .info-block.dark .label { color: var(--mauve); }
+    .info-block h2 {
+      font-size: 22px;
+      margin-bottom: 18px;
+      line-height: 1.2;
+    }
+    .info-block p, .info-block li {
+      font-size: 14px;
+      line-height: 1.8;
+    }
+    .info-block ul {
+      list-style: disc;
+      padding-left: 18px;
+    }
+    .info-block ul li {
+      padding-left: 4px;
+    }
+    .info-block.dark ul li { color: var(--beige); }
+
+    /* ── SEAMLESS BLOCK ── */
+    .seamless {
+      padding: 72px 7vw;
+      background: var(--mauve-light);
+      max-width: 100%;
+    }
+    .seamless .label { margin-bottom: 20px; }
+    .seamless h2 {
+      font-size: clamp(20px, 3vw, 34px);
+      max-width: 620px;
+      line-height: 1.2;
+      color: var(--black);
+      margin-bottom: 18px;
+    }
+    .seamless p {
+      max-width: 560px;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      padding: 80px 7vw;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 48px;
+      align-items: flex-start;
+    }
+    .cta-left { flex: 1 1 320px; }
+    .cta-left .label { margin-bottom: 20px; }
+    .cta-left h2 {
+      font-size: clamp(22px, 3vw, 36px);
+      line-height: 1.2;
+      margin-bottom: 24px;
+      color: var(--black);
+    }
+    .btn-primary {
+      display: inline-block;
+      padding: 14px 32px;
+      background: var(--black);
+      color: var(--beige);
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--mauve-dark); }
+    .contact-line {
+      margin-top: 24px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .contact-line a {
+      color: var(--mauve-dark);
+      text-decoration: none;
+      border-bottom: 1px solid var(--mauve);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--mauve-light);
+      padding: 28px 7vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    footer .wordmark { font-size: 10px; }
+    footer p {
+      font-size: 11px;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* ── SCROLL FADE-IN ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <span class="wordmark">Artemis</span>
+    <span class="header-sub">A user study by MIT Media Lab x Sonos</span>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero fade-in">
+    <p class="label">Research Study · Aug - Sept 2026</p>
+    <h1>Sound for<br/><em>Gestational Synchrony</em></h1>
+    <p class="byline">MIT Media Lab x Sonos — Call for Participants</p>
+    <p>
+      Across cultures and history, sound and collective vocalization have been used to modulate emotional and physiological states — ranging from Vedic chanting and communal folk music to coordinated singing and lamentation practices. These traditions implicitly exploit sound's capacity to shape autonomic tone, breathing, and interpersonal synchrony.
+    </p>
+    <p>
+      Sound is also the primary sensory channel of 2-way interaction between you and your baby. We are combining wearable biosensing, spatial audio, and a custom app to explore how music shapes the fetal-maternal bond and stress indicators across time.
+    </p>
+    <span class="dates-pill">Register before July 31st</span>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- COMPONENTS -->
+  <section class="components fade-in">
+    <p class="label">Study Components</p>
+    <div class="component-grid">
+      <div class="component-card">
+        <p class="component-num">01 — WEARABLE</p>
+        <h3>ECG Patch</h3>
+        <p>A clinically-validated, non-invasive patch worn on the abdomen that continuously records both maternal and fetal cardiac signals.</p>
+      </div>
+      <div class="component-card">
+        <p class="component-num">02 — AUDIO</p>
+        <h3>Sonos Sound System</h3>
+        <p>You will choose from a menu of music and calming sounds to be streamed through Sonos.</p>
+      </div>
+      <div class="component-card">
+        <p class="component-num">03 — PLATFORM</p>
+        <h3>Artemis App</h3>
+        <p>Our app coordinates the study sessions, logs biometric data, and guides you through each listening activity.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BELLY IMAGE -->
+  <div class="belly-section fade-in">
+    <img src="biorithm-belly.webp" alt="ECG patch worn on a pregnant belly" />
+    <div class="belly-caption">ECG patch worn directly on the abdomen during study sessions</div>
+  </div>
+
+  <!-- ELIGIBILITY + COMPENSATION -->
+  <div class="info-row fade-in">
+    <div class="info-block">
+      <p class="label">Eligibility</p>
+      <h2>Who We're Looking For</h2>
+      <ul>
+        <li>30 or more weeks pregnant</li>
+        <li>Musically inclined or actively interested in music</li>
+        <li>Able to attend study sessions in the Boston / Cambridge area</li>
+        <li>No prior known cardiac conditions</li>
+      </ul>
+    </div>
+    <div class="info-block dark">
+      <p class="label">Compensation</p>
+      <h2>What You Receive</h2>
+      <ul>
+        <li>Travel reimbursement for all study sessions</li>
+        <li>Gift cards upon study completion</li>
+        <li>Access to session insights</li>
+        <li>The knowledge that your participation shapes the science of sound and early life</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SEAMLESS -->
+  <section class="seamless fade-in">
+    <p class="label">Our Commitment to You</p>
+    <h2>We want to make this as seamless as possible.</h2>
+    <p>
+      You are growing a human. The last thing you need is a complicated research protocol. We will handle all setup and keep each session brief and comfortable. Everything is designed around your schedule and your wellbeing.
+    </p>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-left fade-in">
+      <p class="label">Get Involved</p>
+      <h2>Ready to participate?<br/>Start with the screening questionnaire.</h2>
+      <a class="btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLSequNmOY6uMDsm92NQH-VNuyvC3lqIA9TYhm2sWMR5IJdjdtA/viewform?usp=publish-editor" target="_blank" rel="noopener">
+        Begin Screening Questionnaire
+      </a>
+      <p class="contact-line">
+        Questions? Contact the research team at
+        <a href="mailto:aasthas@mit.edu">aasthas@mit.edu</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="wordmark">Artemis</span>
+    <p>MIT Media Lab x Sonos &nbsp;·&nbsp; Studies run Aug - Sept 2026 &nbsp;·&nbsp; IRB Approved</p>
+  </footer>
+
+  <script>
+    // ── SCROLL FADE-IN ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add("visible");
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
